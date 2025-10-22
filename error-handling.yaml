@@ -1,0 +1,17 @@
+- name: user cretion
+  hosts: local
+  connection: local
+  become: yes
+  tasks:
+    - name: creating the user
+
+      ansible.builtin.command: ls -l
+      register: user_creation
+
+    - name: printing the user
+      ansible.builtin.debug:
+        msg: "user creation status is {{ user_creation }}"
+    - name: creating
+      ansible.builtin.command: useradd roboshop
+      when: user_creation.rc != 0
+        
