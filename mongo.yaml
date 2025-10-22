@@ -15,7 +15,7 @@
   - name: starting the service
     ansible.builtin.service:
       name: mongod
-      status: started
+      state: started
       enabled: yes
      
   - name: allowing all
@@ -27,8 +27,12 @@
   - name: starting the service
     ansible.builtin.service:
       name: mongod
-      status: started
+      state: started
       enabled: yes
+
+  tags:
+    name:mongodb
+    register: ec2_output
      
 
   
