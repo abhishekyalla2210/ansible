@@ -1,0 +1,35 @@
+- name : creating mongodb server
+  hosts: mongodb
+  become: yes
+  tasks:
+  - name: creating repo file
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: installing mongodb
+    ansible.builtin.package:
+      name: mongodb-org 
+      state: present
+
+  - name: starting the service
+    ansible.builtin.service:
+      name: mongod
+      status: started
+      enabled: yes
+     
+  - name: allowing all
+    ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: 127.0.0.1
+    replace: 0.0.0.0
+
+  - name: starting the service
+    ansible.builtin.service:
+      name: mongod
+      status: started
+      enabled: yes
+     
+
+  
+
