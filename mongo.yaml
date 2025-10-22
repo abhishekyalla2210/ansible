@@ -30,9 +30,7 @@
       state: started
       enabled: yes
 
-    tags:
-     name: mongodb
-     register: ec2_output
+    register: ec2_output
 
   - name: printing
     ansible.builtin.debug:
