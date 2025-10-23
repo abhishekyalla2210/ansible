@@ -8,8 +8,8 @@
     sg_id: sg-03c6dffbde757a30b
             
     domain_name: abhishekdev.fun
-    # instances:
-    #   - catalogue
+    instances:
+      - mongodb
 
   tasks:
     - name: launching the ec2_instance
