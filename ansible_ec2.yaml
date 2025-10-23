@@ -1,6 +1,7 @@
 - name: creating ec2_instance
-  hosts: local
-  connection: local
+  hosts: catalogue
+  become: yes
+  
   
 
   vars:
@@ -9,7 +10,7 @@
             
     domain_name: abhishekdev.fun
     instances:
-      - mongodb
+      - catalogue
 
   tasks:
     - name: launching the ec2_instance
