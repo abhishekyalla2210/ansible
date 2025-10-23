@@ -67,7 +67,7 @@
   - name: copying mongo repo
     ansible.builtin.copy:
       src: mongo.repo
-      state: /etc/yum.repos.d/mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
 
   - name: installing cluient
     ansible.builtin.package:
