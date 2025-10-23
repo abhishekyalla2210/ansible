@@ -1,42 +1,66 @@
-- name : creating mongodb server
+# - name : creating mongodb server
+#   hosts: mongodb
+#   become: yes
+#   tasks:
+#   - name: creating repo file
+#     ansible.builtin.copy:
+#       src: mongo.repo
+#       dest: /etc/yum.repos.d/mongo.repo
+
+#   - name: installing mongodb
+#     ansible.builtin.package:
+#       name: mongodb-org 
+#       state: present
+
+#   - name: starting the service
+#     ansible.builtin.service:
+#       name: mongod
+#       state: started
+#       enabled: yes
+     
+#   - name: allowing all
+#     ansible.builtin.replace:
+#       path: /etc/mongod.conf
+#       regexp: 127.0.0.1
+#       replace: 0.0.0.0
+
+#   - name: starting the service
+#     ansible.builtin.service:
+#       name: mongod
+#       state: started
+#       enabled: yes
+
+#     register: ec2_output
+
+#   - name: printing
+#     ansible.builtin.debug:
+#       msg: "{{ ec2_output}}"
+
+     
+- name: setup mongodb server
   hosts: mongodb
   become: yes
   tasks:
-  - name: creating repo file
+  - name: copy mongodb repo
     ansible.builtin.copy:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
 
-  - name: installing mongodb
+  - name: install mongodb server
     ansible.builtin.package:
-      name: mongodb-org 
+      name: mongodb-org
       state: present
-
-  - name: starting the service
-    ansible.builtin.service:
-      name: mongod
-      state: started
-      enabled: yes
-     
-  - name: allowing all
+      
+  - name: allow remote connections
     ansible.builtin.replace:
       path: /etc/mongod.conf
-      regexp: 127.0.0.1
-      replace: 0.0.0.0
-
-  - name: starting the service
+      regexp: '127.0.0.1'
+      replace: '0.0.0.0'
+  
+  - name: start and enable service
     ansible.builtin.service:
       name: mongod
       state: started
       enabled: yes
-
-    register: ec2_output
-
-  - name: printing
-    ansible.builtin.debug:
-      msg: "{{ ec2_output}}"
-
-     
-
   
 
