@@ -54,7 +54,12 @@
       state: started
 
   - name: copying mongo repo
-    
+    ansible.builtin.copy:
+      scr: mongo.repo
+      state: /etc/yum.repos.d/mongo.repo
+
+  
+
 
 
 
