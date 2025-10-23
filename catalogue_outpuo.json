@@ -1,0 +1,22 @@
+"msg": {
+        "changed": true,
+        "cmd": [
+            "mongosh",
+            "mongodb.abhishekdev.fun",
+            "--quiet",
+            "--eval",
+            "db.getMongo().getDBNames().indexOf('catalogue')"
+        ],
+        "delta": "0:00:01.059187",
+        "end": "2025-10-23 17:51:46.995364",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2025-10-23 17:51:45.936177",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "-1",
+        "stdout_lines": [
+            "-1"
+        ]
+    }
