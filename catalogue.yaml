@@ -22,10 +22,21 @@
      shell: /sbin/nologin
      home: /app 
 
+  - name: deleting a file
+    ansible.builtin.file:
+     state: absent
+     path:  /app
+
+
   - name: creating a file
     ansible.builtin.file:
      state: directory
      path:  /app
+
+  - name: Delete catalogue file
+    ansible.builtin.file:
+      path: /tmp/catalogue.zip
+      state: absent
 
   - name: downloading the files
     ansible.builtin.get_url:
@@ -57,6 +68,15 @@
     ansible.builtin.copy:
       scr: mongo.repo
       state: /etc/yum.repos.d/mongo.repo
+
+  - name: installing cluient
+    ansible.builtin.package:
+      name: mongodb-mongosh
+      state: present
+
+  - name: connnect to mongodb catalogue
+    ansible.builtin.command: mongosh mongodb.daws86s.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+    register: catalogue_output
 
   
 
