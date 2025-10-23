@@ -1,5 +1,5 @@
 - name: creating ec2_instance
-  hosts: catalogue
+  hosts: local
   become: yes
 
   vars:
