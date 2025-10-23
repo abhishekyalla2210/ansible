@@ -36,7 +36,27 @@
     ansible.builtin.unarchive:
       src: /tmp/catalogue.zip
       dest: /app
-      
+      remote_src: yes
+
+  - name: installing dependencies  
+    community.general.npm:
+     path: /app
+
+  - name: copying the service
+    ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: reloading
+    ansible.builtin.systemd_service:
+      name: catalogue
+      enabled: true
+      state: started
+
+  - name: copying mongo repo
+    
+
+
 
 
      
