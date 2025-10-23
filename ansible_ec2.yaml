@@ -1,5 +1,6 @@
 - name: creating ec2_instance
   hosts: local
+  connection: local
   become: yes
 
   vars:
