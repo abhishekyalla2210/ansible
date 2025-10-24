@@ -1,17 +1,32 @@
-- name: setup mysql server
-  hosts: mysql
+- name: setup redis server
+  hosts: redis
   become: yes
   tasks:
-  - name: install mysql server
+  - name: disable default redis
+    ansible.builtin.command: dnf module disable redis -y
+
+  - name: enable redis 7
+    ansible.builtin.command: dnf module enable redis:7 -y
+
+  - name: install redis
     ansible.builtin.package:
-      name: mysql-server
+      name: redis
       state: present
+  
+  - name: allow remote connections
+    ansible.builtin.replace:
+      path: /etc/redis/redis.conf
+      regexp: '127.0.0.1'
+      replace: '0.0.0.0'
 
-  - name: start and enable mysql
+  - name: disable proctected mode
+    ansible.builtin.lineinfile:
+      path: /etc/redis/redis.conf
+      regexp: 'protected-mode'
+      line: 'protected-mode no'
+
+  - name: start and enable redis
     ansible.builtin.service:
-      name: mysqld
-      state: started
+      name: redis
       enabled: yes
-
-  - name: setup root password
-    ansible.builtin.command: mysql_secure_installation --set-root-pass RoboShop@1
+      state: started
